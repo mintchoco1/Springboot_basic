@@ -3,11 +3,14 @@ package com.hello.core.member;
 public class MemberServiceImpl implements MemberService {
 
     //MemberRepository는 인터페이스에 의존하지만 오른쪽이 문제. DIP 위반
+    //이제 인터페이스에만 의존.
+    //객체를 생성하지 않고 인터페이스만 선언
     private final MemberRepository memberRepository;
 
     /**
      * 생성자를 만들어줌
      * 생성자를 통해서 이 memberRepository의 구현체가 어떤게 들어갈지를 결정
+     * 여기서 할당
      * **/
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;

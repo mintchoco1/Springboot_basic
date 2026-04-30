@@ -9,6 +9,7 @@ import com.hello.core.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService{
 
+    /*
     private final MemberRepository memberRepository = new MemoryMemberRepository();//회원 찾기
     //private final DiscountPolicy discountPolicy = new FixDiscountPolicy();//고정 할인 정책(바꾸기 전)
     //private final DiscountPolicy discountPolicy = new RateDiscountPolicy();//이걸로 바꿔준다.바꾸는 순간 전체를 변경해야함
@@ -17,6 +18,16 @@ public class OrderServiceImpl implements OrderService{
     //하지만 구현체가 없는데 어떻게 코드를 실행할 수 있을까?
     //누군가가 클라이언트인 OrderServiceImpl에 DiscountPolicy의 구현 객체를 대신 생성하고 주입해줘야함
     private DiscountPolicy discountPolicy;
+    */
+
+    private final MemberRepository memberRepository;
+    //OrderServiceImpl은 DisCountPolicy에 의존
+    private final DiscountPolicy discountPolicy;
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     //오더서비스는 두개가 필요
     @Override
