@@ -4,19 +4,24 @@ import com.hello.core.member.Grade;
 import com.hello.core.member.Member;
 import com.hello.core.member.MemberService;
 import com.hello.core.member.MemberServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class MemberApp {
 
     public static void main(String[] args) {
-
-        AppConfig appConfig = new AppConfig();
 
         /**MemberService memberService = new MemberServiceImpl();
          * 기존에는 메인에서 직접 MemberServiceImpl을 생성해줬었음
          */
         //memberservice 안에는 memberserviceimpl이 들어가있음
         //appconfig에 memberservice를 달라고 하면 impl 객체를 생성하면서 메모리멤버리포지토리를 쓸거라고 알려줌
-        MemberService memberService = appConfig.memberService();
+        //AppConfig appConfig = new AppConfig();
+        //MemberService memberService = appConfig.memberService();
+
+        ApplicationContext applicationContextcontext = new AnnotationConfigApplicationContext(AppConfig.class);
+        MemberService memberService = applicationContextcontext.getBean("memberService", MemberService.class);
+
         Member member = new Member("memberA", 1L, Grade.Vip);
         memberService.join(member);
 
