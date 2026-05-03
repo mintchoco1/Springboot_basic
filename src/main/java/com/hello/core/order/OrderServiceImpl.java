@@ -24,12 +24,15 @@ public class OrderServiceImpl implements OrderService{
     //OrderServiceImpl은 DisCountPolicy에 의존
     private final DiscountPolicy discountPolicy;
 
+    //여기서 discountpolicy의 구현체를 받는다. 생성자에서 받음
+    //MemberRepository와 DiscountPolicy라는 인터페이스 타입을 받음. 이 시점에 괄호 안으로 들어오는게 저장소인지 고정할인지 비율할인지 모름.
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
+        this.memberRepository = memberRepository;//던져준 저장소를 받아서 내 주머니에 넣음
+        this.discountPolicy = discountPolicy;//던져준 할인 정책을 받아서 내 주머니에 넣음
     }
 
     //오더서비스는 두개가 필요
+    //클라이언트로 부터 누가 무엇을 얼마에 주문했는지 정보를 전달받음
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId);//멤버 찾기
