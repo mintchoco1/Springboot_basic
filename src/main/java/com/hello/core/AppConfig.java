@@ -22,6 +22,9 @@ public class AppConfig {
     public MemberService memberService(){
         return new MemberServiceImpl(memberRepository());
     }
+    //여기서 memberRepository를 넣어주고 있음.
+    //즉 MemberServiceImpl은 MemberRepositiory가 필요함.
+    //즉 객체와 객체를 연결해주는 것. 이거를 의존성 주입이라고 함
 
     //나중에 DB를 바꾸고 싶으면 이 코드만 바꾸면 됨
     @Bean
