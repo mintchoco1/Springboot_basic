@@ -7,6 +7,7 @@ public class Member {
     private Grade grade;
 
     //단축키 alt + insert
+    //새 회원 만들 때 필요한 정보
     public Member(String name, Long id, Grade grade) {
         this.name = name;
         this.id = id;

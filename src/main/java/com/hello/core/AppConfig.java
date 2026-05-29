@@ -16,22 +16,32 @@ import org.springframework.context.annotation.Configuration;
 @Configuration //설정 정보 담당
 public class AppConfig {
 
-    //여기서 할당
-    //다른 impl 이 정상적으로 작동할 수 있도록 필요한 객체들을 실제로 생성해서 연결해줌
-    @Bean
+    @Bean //이 객체를 스프링 빈으로 등록한다는 뜻
     public MemberService memberService(){
         return new MemberServiceImpl(memberRepository());
     }
-    //여기서 memberRepository를 넣어주고 있음.
-    //즉 MemberServiceImpl은 MemberRepositiory가 필요함.
-    //즉 객체와 객체를 연결해주는 것. 이거를 의존성 주입이라고 함
+    /**
+     * 실행 순서
+     * 1. memberRepository() 호출
+     * 2. new MemoryMemberRepository() 생성
+     * 3. new MemberServiceImpl(memberRepository()) 실행\
+     * 즉, MemberServiceImpl에 MemoryMemberRepository 연결
+     */
 
-    //나중에 DB를 바꾸고 싶으면 이 코드만 바꾸면 됨
     @Bean
     public MemoryMemberRepository memberRepository() {
         return new MemoryMemberRepository();
     }
 
+    /***
+     * 여기서 부터는 생성자부터 봐야함.
+     * OrderServiceImpl 객체를 만들 때 반드시 2개의 객체를 같이 줘야한다는 뜻
+     * 1. memberRepository() 호출
+     * 2. MemoryMemberRepository() 객체 호출
+     * 3. discountPolicy() 호출하고 실행. RateDiscountPolicy 객체 생성
+     * 4. 이제 new OrderServiceImpl(객체A, 객체B) 실행
+     * 5. 이제 OrderServiceImpl 생성자로 들어가보면 매개변수 안에는 객체 A,B가 들어가있음
+     */
     @Bean
     public OrderService orderService(){
         return new OrderServiceImpl(memberRepository(), discountPolicy());
